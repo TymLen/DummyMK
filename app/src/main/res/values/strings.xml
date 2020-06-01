@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">DummyMK</string>
+    <string name="game_length">Game Length</string>
+    <string name="nights">Nights</string>
+    <string name="days">Days</string>
+    <string name="start">Start</string>
+    <string-array name="zerotofive">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string-array name="mana">
+        <item>Select</item>
+        <item>Red</item>
+        <item>White</item>
+        <item>Blue</item>
+        <item>Green</item>
+    </string-array>
+    <string-array name="Scenario">
+        <item>Select</item>
+        <item>Red</item>
+        <item>White</item>
+        <item>Blue</item>
+        <item>Green</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
