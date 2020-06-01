@@ -20,7 +20,6 @@ public class GameHost extends AppCompatActivity {
             String hero = extras.getString("name");
             int days = extras.getInt("days");
             int nights = extras.getInt("nights");
-            Log.d("Hero", hero);
             GameFrag _gameFrag = GameFrag.newInstance(hero, days+nights, days, nights);
             FragmentManager fragman = getSupportFragmentManager();
             FragmentTransaction fragTran = fragman.beginTransaction();
