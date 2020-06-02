@@ -20,9 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ict376.tym.dummymk.R;
-import com.ict376.tym.dummymk.GameHost;
+import com.ict376.tym.dummymk.ui.game.GameHost;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 

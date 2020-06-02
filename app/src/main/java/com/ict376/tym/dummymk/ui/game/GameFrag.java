@@ -16,17 +16,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ict376.tym.dummymk.Card;
-import com.ict376.tym.dummymk.EoRDialog;
 import com.ict376.tym.dummymk.R;
+import com.ict376.tym.dummymk.ui.database.DummyData;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,8 +42,7 @@ public class GameFrag extends Fragment {
     private ArrayList<String> history = new ArrayList<>();
     private ListView mHistoryList;
     private TextView decksize;
-    private Button mdrawBut;
-    private Button mEoRBut;
+    private Button mdrawBut, mEoRBut, mEndBut;
     private int round = 1;
     private ArrayList<String> manaList = new ArrayList<>();
     private static int numRounds;
@@ -54,6 +50,7 @@ public class GameFrag extends Fragment {
     private LinearLayout mBack;
     private int rCard = 4, gCard = 4, wCard = 4, bCard = 4;
     private static int days, nights;
+    private static boolean loadgame;
 
     public static GameFrag newInstance(String dummy, int rounds, int inDays, int inNights) {
         Log.d("Hero", Integer.toString(dummy.length()));
@@ -63,6 +60,10 @@ public class GameFrag extends Fragment {
         numRounds = rounds;
         return new GameFrag();
     }
+    public static GameFrag newInstance(){
+        loadgame = true;
+        return new GameFrag();
+    }
     //(int gMana, int rMana, int bMana, int wMana, int gCard, int rCard, int bCard, int wCard)
 
 
@@ -70,14 +71,8 @@ public class GameFrag extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        DummyData db = new DummyData(getContext());
-        Cursor cursor = db.loadGame();
-        Log.d("DB", Integer.toString(cursor.getCount()));
-        Log.d("DB", Integer.toString(cursor.getColumnIndex("REDMANA")));
-        cursor.close();
-
-
         View view = inflater.inflate(R.layout.game_fragment, container, false);
+        int success = 0;
         mdrawBut = (Button) view.findViewById(R.id.drawBut);
         TextView mHero = (TextView) view.findViewById(R.id.heroText);
         mBack = (LinearLayout) view.findViewById(R.id.game);
@@ -89,19 +84,29 @@ public class GameFrag extends Fragment {
         decksize = (TextView) view.findViewById(R.id.cardsLeftNum);
         mEoRBut = (Button) view.findViewById(R.id.nextRoundBut);
         mRoundEnd = (TextView) view.findViewById(R.id.endText);
-        mRoundEnd.setText(Integer.toString(numRounds));
         mNumRound = (TextView) view.findViewById(R.id.roundNum);
-        mNumRound.setText(Integer.toString(round));
         mEoRBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startNext();
             }
         });
+
+        if(loadgame){
+            success = loadGame();
+        }else{
+            setMana();
+            updateMana();
+            createDeck();
+        }
+        if(success == 0){
+            Toast.makeText(getContext(), "Error loading save data", Toast.LENGTH_LONG).show();
+            getActivity().finish();
+        }
+        mRoundEnd.setText(Integer.toString(numRounds));
+        mNumRound.setText(Integer.toString(round));
         mHero.setText(hero);
-        setMana();
-        updateMana();
-        createDeck();
+
         mdrawBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,6 +115,37 @@ public class GameFrag extends Fragment {
         });
         updateHistory("Round "+round+" Start. "+(numRounds-round)+" rounds remaining.","cookie");
         return view;
+    }
+    private int loadGame(){
+        DummyData db = new DummyData(getContext());
+        Cursor cursor = db.loadGame();
+        cursor.moveToFirst();
+        try{
+            days = cursor.getInt(cursor.getColumnIndex("DAYS"));
+            nights = cursor.getInt(cursor.getColumnIndex("NIGHTS"));
+            hero = cursor.getString(cursor.getColumnIndex("HERO"));
+            numRounds = days+nights;
+            round = cursor.getInt(cursor.getColumnIndex("ROUND"));
+            mana.put("Green", cursor.getString(cursor.getColumnIndex("GREENMANA")));
+            mana.put("White", cursor.getString(cursor.getColumnIndex("WHITEMANA")));
+            mana.put("Blue", cursor.getString(cursor.getColumnIndex("BLUEMANA")));
+            mana.put("Red", cursor.getString(cursor.getColumnIndex("REDMANA")));
+            for(int i = 0; i< cursor.getInt(cursor.getColumnIndex("REDCARD")); i++){
+                addCard("Red");
+            }
+            for(int i = 0; i< cursor.getInt(cursor.getColumnIndex("GREENCARD")); i++){
+                addCard("Green");
+            }
+            for(int i = 0; i< cursor.getInt(cursor.getColumnIndex("WHITECARD")); i++){
+                addCard("White");
+            }
+            for(int i = 0; i< cursor.getInt(cursor.getColumnIndex("BLUECARD")); i++){
+                addCard("Blue");
+            }
+            return 1;
+        }catch(Exception e){
+            return 0;
+        }
     }
 
     @Override
@@ -259,7 +295,7 @@ public class GameFrag extends Fragment {
         if(round % 2== 0){
             mBack.setBackground((ContextCompat.getDrawable((getContext()), R.drawable.night)));
         }else{
-            mBack.setBackground((ContextCompat.getDrawable((getContext()), R.drawable.daysmall)));
+            mBack.setBackground((ContextCompat.getDrawable((getContext()), R.drawable.daytime)));
         }
         history.clear();
         manaList.clear();

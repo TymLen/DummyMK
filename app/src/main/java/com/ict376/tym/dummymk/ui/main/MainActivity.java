@@ -1,10 +1,11 @@
-package com.ict376.tym.dummymk;
+package com.ict376.tym.dummymk.ui.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.ict376.tym.dummymk.ui.main.MainFragment;
+import com.ict376.tym.dummymk.R;
+import com.ict376.tym.dummymk.ui.main.MenuFrag;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, MainFragment.newInstance())
+                    .replace(R.id.container, MenuFrag.newInstance())
                     .commitNow();
         }
     }

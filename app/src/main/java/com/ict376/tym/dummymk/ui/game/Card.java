@@ -1,4 +1,4 @@
-package com.ict376.tym.dummymk;
+package com.ict376.tym.dummymk.ui.game;
 
 public class Card {
     String color;

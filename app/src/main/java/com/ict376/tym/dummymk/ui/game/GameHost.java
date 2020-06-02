@@ -1,4 +1,4 @@
-package com.ict376.tym.dummymk;
+package com.ict376.tym.dummymk.ui.game;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.ict376.tym.dummymk.R;
 import com.ict376.tym.dummymk.ui.game.GameFrag;
 
 public class GameHost extends AppCompatActivity {

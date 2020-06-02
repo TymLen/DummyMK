@@ -1,23 +1,14 @@
-package com.ict376.tym.dummymk;
+package com.ict376.tym.dummymk.ui.game;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import com.ict376.tym.dummymk.ui.game.EoRListener;
+import com.ict376.tym.dummymk.R;
 
 import androidx.fragment.app.DialogFragment;
 
@@ -25,7 +16,6 @@ public class EoRDialog extends DialogFragment   {
     private Spinner inMana;
     private Spinner inCard;
     private Button mConfirm, mCancel;
-    private EoRListener listener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){

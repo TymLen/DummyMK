@@ -1,4 +1,4 @@
-package com.ict376.tym.dummymk.ui.game;
+package com.ict376.tym.dummymk.ui.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -25,7 +25,7 @@ public class DummyData extends SQLiteOpenHelper {
     private static String HERO = "HERO";
 
     private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS SAVEDATA";
+            "DROP TABLE IF EXISTS "+TABLE_NAME;
 
     public DummyData(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
