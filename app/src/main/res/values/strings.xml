@@ -20,12 +20,32 @@
         <item>Green</item>
     </string-array>
     <string-array name="Scenario">
-        <item>Select</item>
-        <item>Red</item>
-        <item>White</item>
-        <item>Blue</item>
-        <item>Green</item>
+        <item>Custom/Unlisted</item>
+        <item>First Reconnaissance</item>
+        <item>Full Conquest</item>
+        <item>Blitz Conquest</item>
+        <item>Solo Conquest</item>
+        <item>Mines Liberation</item>
+        <item>Druid Nights</item>
+        <item>Dungeon Lords</item>
+        <item>Life and Death</item>
+        <item>The Realm of the Dead</item>
+        <item>The Hidden Valley</item>
+        <item>The Lost Relic</item>
+        <item>Volkares Quest</item>
+        <item>Volkares Return</item>
     </string-array>
+    <string-array name="Heroes">
+        <item>Select</item>
+        <item>Goldyx</item>
+        <item>Braevalar</item>
+        <item>Tovak</item>
+        <item>WolfHawk</item>
+        <item>Krang</item>
+        <item>Norowas</item>
+        <item>Arythea</item>
+    </string-array>
+    <string name="zero">0</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

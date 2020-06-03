@@ -53,9 +53,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 boolean err = false;
-                Log.d("Hero", Integer.toString(hero.length()));
                 Intent intent = new Intent(getActivity(), GameHost.class);
-
                 int days = Integer.parseInt(daySpin.getSelectedItem().toString());
                 int nights = Integer.parseInt(nightSpin.getSelectedItem().toString());
                 if(hero.equals("none")){

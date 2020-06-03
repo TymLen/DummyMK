@@ -53,7 +53,7 @@ public class GameFrag extends Fragment {
     private static boolean loadgame;
 
     public static GameFrag newInstance(String dummy, int rounds, int inDays, int inNights) {
-        Log.d("Hero", Integer.toString(dummy.length()));
+        loadgame = false;
         days = inDays;
         nights = inNights;
         hero = dummy;
@@ -64,7 +64,6 @@ public class GameFrag extends Fragment {
         loadgame = true;
         return new GameFrag();
     }
-    //(int gMana, int rMana, int bMana, int wMana, int gCard, int rCard, int bCard, int wCard)
 
 
     @Nullable
@@ -85,6 +84,13 @@ public class GameFrag extends Fragment {
         mEoRBut = (Button) view.findViewById(R.id.nextRoundBut);
         mRoundEnd = (TextView) view.findViewById(R.id.endText);
         mNumRound = (TextView) view.findViewById(R.id.roundNum);
+        mEndBut = (Button) view.findViewById(R.id.game_endbutton);
+        mEndBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                endGame();
+            }
+        });
         mEoRBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,16 +99,18 @@ public class GameFrag extends Fragment {
         });
 
         if(loadgame){
+
             success = loadGame();
+            if(success == 0){
+                Toast.makeText(getContext(), "Error loading save data", Toast.LENGTH_LONG).show();
+                getActivity().finish();
+            }
         }else{
             setMana();
             updateMana();
             createDeck();
         }
-        if(success == 0){
-            Toast.makeText(getContext(), "Error loading save data", Toast.LENGTH_LONG).show();
-            getActivity().finish();
-        }
+
         mRoundEnd.setText(Integer.toString(numRounds));
         mNumRound.setText(Integer.toString(round));
         mHero.setText(hero);
@@ -332,5 +340,11 @@ public class GameFrag extends Fragment {
         blue.setText(mana.get("Blue"));
         green.setText(mana.get("Green"));
         white.setText(mana.get("White"));
+    }
+    private void endGame(){
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        EndGame_dialog eg_dia = new EndGame_dialog();
+        eg_dia.setTargetFragment(this, 1);
+        eg_dia.show(fm, "EG_Dialog");
     }
 }
