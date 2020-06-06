@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -32,7 +33,7 @@ public class MainFragment extends Fragment {
     ArrayList<String> history = new ArrayList<>();
     ListView mHistoryList;
     TextView hSelect;
-    Spinner daySpin, nightSpin;
+    Spinner daySpin, nightSpin, mscenSpin;
     String[] rngHero = {"Goldyx","WolfHawk", "Tovak", "Norowas", "Krang", "Arythea", "Braevalar"};
     Button mGold, mWolf, mTovak, mNoro, mKrang, mAry, mBrae, mRan;
 
@@ -49,6 +50,46 @@ public class MainFragment extends Fragment {
         hSelect = (TextView) view.findViewById(R.id.heroConfirm);
         daySpin = (Spinner) view.findViewById(R.id.daySpinner);
         nightSpin = (Spinner) view.findViewById(R.id.nightSpinner);
+        mscenSpin = (Spinner) view.findViewById(R.id.scenSpin);
+        mscenSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 1){
+                    setDayNight(2, 2);
+                }else if(position == 2){
+                    setDayNight(3, 3);
+                }else if(position == 3){
+                    setDayNight(2, 2);
+                }else if(position == 4){
+                    setDayNight(3, 3);
+                }else if(position == 5){
+                    setDayNight(2, 2);
+                }else if(position == 6){
+                    setDayNight(2, 2);
+                }else if(position == 7){
+                    setDayNight(3, 2);
+                }else if(position == 8){
+                    setDayNight(3, 3);
+                }else if(position == 9){
+                    setDayNight(2, 2);
+                }else if(position == 10){
+                    setDayNight(2, 2);
+                }else if(position == 11){
+                    setDayNight(1, 1);
+                }else if(position == 12){
+                    setDayNight(3, 3);
+                }else if(position == 13){
+                    setDayNight(2, 2);
+                }else if(position == 14){
+                    setDayNight(3, 3);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         mstartBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -174,6 +215,10 @@ public class MainFragment extends Fragment {
         });
         return view;
     }
+    private void setDayNight(int setDay, int setNight){
+        daySpin.setSelection(setDay);
+        nightSpin.setSelection(setNight);
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -181,6 +226,7 @@ public class MainFragment extends Fragment {
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         // TODO: Use the ViewModel
     }
+
     private void clearSelected(){
         mGold.setTextColor(getResources().getColor(R.color.text));
         mWolf.setTextColor(getResources().getColor(R.color.text));

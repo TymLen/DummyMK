@@ -5,8 +5,11 @@ import android.os.Bundle;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +30,14 @@ public class EndGame_dialog extends DialogFragment {
     private EditText mInFame, mInKnow, mInLoot, mInLead, mInCon, mInAdv, mInBeat, mInSS;
     private TextView mTotal;
     private Button mCancel, mSubmit;
+    private Handler handler = new Handler();
+    private Runnable runnable = new Runnable(){
+        @Override
+        public void run(){
+            totalScore();
+            handler.postDelayed(this, 1000);
+        }
+    };
 
 
     public EndGame_dialog() {
@@ -52,47 +63,40 @@ public class EndGame_dialog extends DialogFragment {
         mSubmit = (Button) v.findViewById(R.id.end_submit);
         mInHero = (Spinner) v.findViewById(R.id.end_herospin);
         mInScene = (Spinner) v.findViewById(R.id.scenSpin);
-        addTextChangeListen(mInFame);
-        addTextChangeListen(mInKnow);
-        addTextChangeListen(mInLoot);
-        addTextChangeListen(mInLead);
-        addTextChangeListen(mInCon);
-        addTextChangeListen(mInAdv);
-        addTextChangeListen(mInBeat);
-        addTextChangeListen(mInSS);
-
-        totalScore();
-
-
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+        handler.postDelayed(runnable, 1000);
 
 
         return v;
     }
     private void totalScore(){
         int total = 0;
-        total += Integer.parseInt(mInFame.getText().toString());
-        total += Integer.parseInt(mInKnow.getText().toString());
-        total += Integer.parseInt(mInLoot.getText().toString());
-        total += Integer.parseInt(mInLead.getText().toString());
-        total += Integer.parseInt(mInCon.getText().toString());
-        total += Integer.parseInt(mInAdv.getText().toString());
-        if(Integer.parseInt(mInBeat.getText().toString()) <0){
-            total -=Integer.parseInt(mInBeat.getText().toString());
-        }else{
-            total += Integer.parseInt(mInBeat.getText().toString());
-        }
-        total += Integer.parseInt(mInSS.getText().toString());
-        mTotal.setText(Integer.toString(total));
-    }
-    private void addTextChangeListen(EditText edit){
-        edit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                totalScore();
+        try{
+            total += Integer.parseInt(mInFame.getText().toString());
+            total += Integer.parseInt(mInKnow.getText().toString());
+            total += Integer.parseInt(mInLoot.getText().toString());
+            total += Integer.parseInt(mInLead.getText().toString());
+            total += Integer.parseInt(mInCon.getText().toString());
+            total += Integer.parseInt(mInAdv.getText().toString());
+            if(Integer.parseInt(mInBeat.getText().toString()) <0){
+                total -=Integer.parseInt(mInBeat.getText().toString());
+            }else{
+                total += Integer.parseInt(mInBeat.getText().toString());
             }
-        });
+            total += Integer.parseInt(mInSS.getText().toString());
+            mTotal.setText(Integer.toString(total));
+        }catch(Exception e){
+            Log.d("Crash", "Total");
+        }
+
     }
     private void saveScoreEndGame(){
 
     }
+
 }

@@ -9,10 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/HiddenTitleTheme">
-        <activity android:name=".ui.game.GameContainer"></activity>
+        <activity android:name=".ui.score.ScoreHost"></activity>
+        <activity android:name=".ui.game.GameContainer" />
         <activity
             android:name=".ui.game.GameHost"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.MainActivity"
             android:screenOrientation="portrait">

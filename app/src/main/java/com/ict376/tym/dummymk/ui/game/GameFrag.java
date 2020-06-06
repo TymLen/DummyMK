@@ -51,6 +51,8 @@ public class GameFrag extends Fragment {
     private int rCard = 4, gCard = 4, wCard = 4, bCard = 4;
     private static int days, nights;
     private static boolean loadgame;
+    private int dayimage = R.drawable.r_day;
+    private int nightimage = R.drawable.r_night;
 
     public static GameFrag newInstance(String dummy, int rounds, int inDays, int inNights) {
         loadgame = false;
@@ -85,6 +87,7 @@ public class GameFrag extends Fragment {
         mRoundEnd = (TextView) view.findViewById(R.id.endText);
         mNumRound = (TextView) view.findViewById(R.id.roundNum);
         mEndBut = (Button) view.findViewById(R.id.game_endbutton);
+        mBack.setBackground((ContextCompat.getDrawable((getContext()), dayimage)));
         mEndBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -301,9 +304,9 @@ public class GameFrag extends Fragment {
         updateMana();
         round++;
         if(round % 2== 0){
-            mBack.setBackground((ContextCompat.getDrawable((getContext()), R.drawable.night)));
+            mBack.setBackground((ContextCompat.getDrawable((getContext()), nightimage)));
         }else{
-            mBack.setBackground((ContextCompat.getDrawable((getContext()), R.drawable.daytime)));
+            mBack.setBackground((ContextCompat.getDrawable((getContext()), dayimage)));
         }
         history.clear();
         manaList.clear();

@@ -5,7 +5,7 @@
     android:id="@+id/game"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/daytime"
+    android:background="@drawable/r_day"
     android:orientation="vertical"
     tools:context=".ui.game.GameFrag">
 
@@ -171,7 +171,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/text"
+            android:background="@color/wind"
             android:text="0"
             android:textAlignment="center"
             android:textColor="@color/black"
@@ -183,7 +183,7 @@
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/text"
+            android:background="@color/wind"
             android:src="@drawable/white_mana" />
     </LinearLayout>
 
@@ -202,7 +202,7 @@
 
         <Button
             android:id="@+id/drawBut"
-            android:layout_width="150dp"
+            android:layout_width="134dp"
             android:layout_height="150dp"
             android:background="@color/transparent"
             android:fontFamily="@font/new_rocker"
@@ -212,15 +212,15 @@
             android:textSize="36sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.003"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.984" />
 
         <Button
             android:id="@+id/game_endbutton"
-            android:layout_width="147dp"
-            android:layout_height="61dp"
+            android:layout_width="124dp"
+            android:layout_height="77dp"
             android:background="@color/transparent"
             android:fontFamily="@font/new_rocker"
             android:text="End Game"
@@ -229,10 +229,10 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintHorizontal_bias="0.52"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.47000003" />
 
         <Button
             android:id="@+id/nextRoundBut"
@@ -244,9 +244,9 @@
             android:textColor="@color/text"
             android:textSize="36sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/drawBut"
+            app:layout_constraintEnd_toEndOf="@+id/drawBut"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.984" />
     </androidx.constraintlayout.widget.ConstraintLayout>
