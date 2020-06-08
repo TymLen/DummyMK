@@ -1,5 +1,6 @@
 package com.ict376.tym.dummymk.ui.game;
 
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
@@ -19,8 +20,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ict376.tym.dummymk.R;
+import com.ict376.tym.dummymk.ui.database.ScoreData;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,9 +41,11 @@ public class EndGame_dialog extends DialogFragment {
             handler.postDelayed(this, 1000);
         }
     };
+    private boolean confirm = false;
 
 
     public EndGame_dialog() {
+
         // Required empty public constructor
     }
 
@@ -62,7 +67,7 @@ public class EndGame_dialog extends DialogFragment {
         mCancel = (Button) v.findViewById(R.id.end_canBut);
         mSubmit = (Button) v.findViewById(R.id.end_submit);
         mInHero = (Spinner) v.findViewById(R.id.end_herospin);
-        mInScene = (Spinner) v.findViewById(R.id.scenSpin);
+        mInScene = (Spinner) v.findViewById(R.id.end_sceneSpin);
         mCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,6 +75,13 @@ public class EndGame_dialog extends DialogFragment {
             }
         });
         handler.postDelayed(runnable, 1000);
+        mSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveScoreEndGame();
+
+            }
+        });
 
 
         return v;
@@ -96,7 +108,15 @@ public class EndGame_dialog extends DialogFragment {
 
     }
     private void saveScoreEndGame(){
-
+        ScoreData db = new ScoreData(getContext());
+        Log.d("Save", mInHero.getSelectedItem().toString()+ Integer.parseInt(mTotal.getText().toString())+ mInScene.getSelectedItem().toString());
+        int success = db.saveScore(mInHero.getSelectedItem().toString(), Integer.parseInt(mTotal.getText().toString()), mInScene.getSelectedItem().toString());
+        if(success == 1){
+            Toast.makeText(getContext(), "Score added.", Toast.LENGTH_LONG).show();
+            getActivity().finish();
+        }else{
+            Toast.makeText(getContext(), "Failed to add score.", Toast.LENGTH_LONG).show();
+        }
     }
 
 }

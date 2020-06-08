@@ -28,7 +28,11 @@ public class GameHost extends AppCompatActivity {
             fragTran.commit();
         }
         else{
-            Log.d("Hero", "No extras");
+            GameFrag _gameFrag = GameFrag.newInstance();
+            FragmentManager fragman = getSupportFragmentManager();
+            FragmentTransaction fragTran = fragman.beginTransaction();
+            fragTran.replace(R.id.container, _gameFrag);
+            fragTran.commit();
         }
 
     }

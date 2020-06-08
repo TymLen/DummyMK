@@ -51,12 +51,17 @@ public class ScoreData extends SQLiteOpenHelper {
         values.put(SCORE, inScore);
         values.put(SCENARIO, inScenario);
         try{
+            Log.d("Save", "Attempt");
             db.insert(TABLE_NAME, null, values);
+            Log.d("Save", "Success");
             db.close();
             return 1;
         }catch(Exception e){
+            Log.d("Save", e.toString());
             db.close();
+
             return 0;
+
         }
     }
     public Cursor getAllScores(){

@@ -48,7 +48,7 @@ public class GameFrag extends Fragment {
     private static int numRounds;
     private TextView red,blue,green,white, mNumRound, mRoundEnd;
     private LinearLayout mBack;
-    private int rCard = 4, gCard = 4, wCard = 4, bCard = 4;
+    private int rCard = 0, gCard = 0, wCard = 0, bCard = 0;
     private static int days, nights;
     private static boolean loadgame;
     private int dayimage = R.drawable.r_day;
@@ -73,7 +73,7 @@ public class GameFrag extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.game_fragment, container, false);
-        int success = 0;
+
         mdrawBut = (Button) view.findViewById(R.id.drawBut);
         TextView mHero = (TextView) view.findViewById(R.id.heroText);
         mBack = (LinearLayout) view.findViewById(R.id.game);
@@ -87,7 +87,7 @@ public class GameFrag extends Fragment {
         mRoundEnd = (TextView) view.findViewById(R.id.endText);
         mNumRound = (TextView) view.findViewById(R.id.roundNum);
         mEndBut = (Button) view.findViewById(R.id.game_endbutton);
-        mBack.setBackground((ContextCompat.getDrawable((getContext()), dayimage)));
+
         mEndBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,7 +102,7 @@ public class GameFrag extends Fragment {
         });
 
         if(loadgame){
-
+            int success = 0;
             success = loadGame();
             if(success == 0){
                 Toast.makeText(getContext(), "Error loading save data", Toast.LENGTH_LONG).show();
@@ -110,8 +110,8 @@ public class GameFrag extends Fragment {
             }
         }else{
             setMana();
-            updateMana();
             createDeck();
+            updateMana();
         }
 
         mRoundEnd.setText(Integer.toString(numRounds));
@@ -125,6 +125,12 @@ public class GameFrag extends Fragment {
             }
         });
         updateHistory("Round "+round+" Start. "+(numRounds-round)+" rounds remaining.","cookie");
+        if(round %2 == 0){
+            mBack.setBackground((ContextCompat.getDrawable((getContext()), nightimage)));
+
+        }else{
+            mBack.setBackground((ContextCompat.getDrawable((getContext()), dayimage)));
+        }
         return view;
     }
     private int loadGame(){
@@ -141,20 +147,33 @@ public class GameFrag extends Fragment {
             mana.put("White", cursor.getString(cursor.getColumnIndex("WHITEMANA")));
             mana.put("Blue", cursor.getString(cursor.getColumnIndex("BLUEMANA")));
             mana.put("Red", cursor.getString(cursor.getColumnIndex("REDMANA")));
+            Deck.empty();
             for(int i = 0; i< cursor.getInt(cursor.getColumnIndex("REDCARD")); i++){
                 addCard("Red");
+                rCard++;
+                Log.d("Red", Integer.toString(i));
             }
             for(int i = 0; i< cursor.getInt(cursor.getColumnIndex("GREENCARD")); i++){
                 addCard("Green");
+                gCard++;
             }
             for(int i = 0; i< cursor.getInt(cursor.getColumnIndex("WHITECARD")); i++){
                 addCard("White");
+                wCard++;
             }
             for(int i = 0; i< cursor.getInt(cursor.getColumnIndex("BLUECARD")); i++){
                 addCard("Blue");
+                bCard++;
             }
+            Collections.shuffle(Deck);
+            actDeck = (Stack)Deck.clone();
+            updateSize();
+            updateMana();
+            cursor.close();
             return 1;
         }catch(Exception e){
+            Toast.makeText(getContext(), "Failed to load game.", Toast.LENGTH_LONG).show();
+            cursor.close();
             return 0;
         }
     }
@@ -214,16 +233,15 @@ public class GameFrag extends Fragment {
         updateSize();
     }
     private void addCard(String color){
-        if(color == "Red"){
+        if(color.equals("Red")){
             rCard++;
-        }else if(color == "Green"){
+        }else if(color.equals("Green")){
             gCard++;
-        }else if(color == "White"){
+        }else if(color.equals("White")){
             wCard++;
-        }else if(color == "Blue"){
+        }else if(color.equals("Blue")){
             bCard++;
         }
-
         Card addThis = new Card(color);
         Deck.add(addThis);
     }
@@ -327,6 +345,7 @@ public class GameFrag extends Fragment {
         if(success == 1){Toast.makeText(getActivity(), "Game Saved.", Toast.LENGTH_LONG).show();}else{
             Toast.makeText(getActivity(), "Game failed to save.", Toast.LENGTH_LONG).show();
         }
+        Log.d("Save", ""+gCard+rCard+bCard+wCard);
 
 
     }
@@ -350,4 +369,5 @@ public class GameFrag extends Fragment {
         eg_dia.setTargetFragment(this, 1);
         eg_dia.show(fm, "EG_Dialog");
     }
+
 }
