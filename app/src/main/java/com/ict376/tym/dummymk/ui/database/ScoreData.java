@@ -5,9 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
-import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import java.util.Date;
 
 public class ScoreData extends SQLiteOpenHelper {
@@ -44,35 +42,38 @@ public class ScoreData extends SQLiteOpenHelper {
     public int saveScore(String inHero, int inScore, String inScenario){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String date = sdf.format(new Date());
+        DateFormat dform = DateFormat.getDateInstance();
+        String date = dform.format(new Date());
         values.put(DATE, date);
         values.put(HERO, inHero);
         values.put(SCORE, inScore);
         values.put(SCENARIO, inScenario);
         try{
-            Log.d("Save", "Attempt");
             db.insert(TABLE_NAME, null, values);
-            Log.d("Save", "Success");
             db.close();
             return 1;
         }catch(Exception e){
-            Log.d("Save", e.toString());
             db.close();
-
             return 0;
-
         }
     }
     public Cursor getAllScores(){
         SQLiteDatabase db = getReadableDatabase();
-        String query = "SELECT * FROM "+TABLE_NAME;
+        String query = "SELECT * FROM "+TABLE_NAME+" ORDER BY "+SCORE+ " DESC";
         return db.rawQuery(query, null);
     }
     public Cursor getScenarioScores(String selection){
         SQLiteDatabase db = getReadableDatabase();
-        String query = "SELECT * FROM "+TABLE_NAME+" WHERE "+SCENARIO+" = "+selection;
-        return db.rawQuery(query, null);
+        String[] dbSel = new String[]{selection};
+        String query = "SELECT * FROM "+TABLE_NAME+" WHERE "+SCENARIO+" = ? ORDER BY "+SCORE+" DESC";
+        return db.rawQuery(query, dbSel);
     }
-
+    public int deleteEntry(String inDate, String inHero, String inScore, String inScenario){
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            db.delete(TABLE_NAME, DATE + "=? and " + HERO + "=? and " + SCORE + "=? and " + SCENARIO + "=?", new String[]{inDate, inHero, inScore, inScenario});
+            return 1;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
 }

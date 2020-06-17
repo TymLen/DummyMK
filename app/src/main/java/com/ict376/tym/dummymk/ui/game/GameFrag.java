@@ -257,7 +257,7 @@ public class GameFrag extends Fragment {
                 cardsPopped++;
                 turn++;
             }
-            updateHistory("Turn"+turn+": AI drew "+cardsPopped+" cards and will call end of round next turn", "cookie");
+            updateHistory("Turn "+turn+": AI drew "+cardsPopped+" cards and will call end of round next turn", "cookie");
         }else{
             actDeck.pop();
             cardsPopped++;

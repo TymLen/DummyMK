@@ -5,6 +5,7 @@
     android:id="@+id/score"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     android:orientation="vertical"
     tools:context=".ui.score.ScoreFragment">
 
@@ -12,10 +13,11 @@
         android:id="@+id/score_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/new_rocker"
         android:text="High Scores"
         android:textAlignment="center"
         android:textAllCaps="true"
-        android:textColor="@color/black"
+        android:textColor="@color/text"
         android:textSize="30sp" />
 
     <LinearLayout
@@ -27,18 +29,89 @@
             android:id="@+id/score_prompt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Choose Scenario: " />
+            android:fontFamily="@font/marko_one"
+            android:text="Choose Scenario: "
+            android:textColor="@color/text" />
 
         <Spinner
             android:id="@+id/score_scenSpin"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/Scenario" />
+            android:background="@android:color/background_light"
+            android:entries="@array/Score_Scenario"
+            android:spinnerMode="dialog" />
+
+        <Button
+            android:id="@+id/score_refresh"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="0"
+            android:background="@drawable/refresh" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/darkshade"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/score_head_score"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/marko_one"
+            android:text="Score"
+            android:textColor="@color/text" />
+
+        <TextView
+            android:id="@+id/score_head_scenario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/marko_one"
+            android:text="Scenario"
+            android:textAlignment="viewStart"
+            android:textColor="@color/text" />
+
+        <TextView
+            android:id="@+id/score_head_hero"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/marko_one"
+            android:text="Hero"
+            android:textAlignment="center"
+            android:textColor="@color/text" />
+
+        <TextView
+            android:id="@+id/score_head_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/marko_one"
+            android:text="Date"
+            android:textAlignment="center"
+            android:textColor="@color/text" />
+
+        <TextView
+            android:id="@+id/score_head_del"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/marko_one"
+            android:text="Delete"
+            android:textAlignment="textEnd"
+            android:textColor="@color/text" />
+
 
     </LinearLayout>
 
     <ListView
         android:id="@+id/score_listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@color/darkshade" />
+
 </LinearLayout>

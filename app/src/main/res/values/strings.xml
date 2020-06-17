@@ -36,6 +36,24 @@
         <item>Volkares Return - Blitz</item>
         <item>Volkares Quest</item>
     </string-array>
+    <string-array name="Score_Scenario">
+        <item>All</item>
+        <item>Custom/Unlisted</item>
+        <item>First Reconnaissance</item>
+        <item>Full Conquest</item>
+        <item>Blitz Conquest</item>
+        <item>Solo Conquest</item>
+        <item>Mines Liberation</item>
+        <item>Druid Nights</item>
+        <item>Dungeon Lords</item>
+        <item>Life and Death</item>
+        <item>The Realm of the Dead</item>
+        <item>The Hidden Valley</item>
+        <item>The Lost Relic</item>
+        <item>Volares Return - Epic</item>
+        <item>Volkares Return - Blitz</item>
+        <item>Volkares Quest</item>
+    </string-array>
     <string-array name="Heroes">
         <item>Select</item>
         <item>Goldyx</item>

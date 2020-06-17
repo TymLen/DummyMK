@@ -23,14 +23,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/new_rocker"
-            android:shadowColor="@color/black"
-            android:shadowDx="10"
             android:text="Dummy Mage"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="@color/text"
             android:textSize="36sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:shadowColor="@color/text_shadow"
+            android:shadowDx="-1"
+            android:shadowDy="-1"
+            android:shadowRadius="1" />
 
         <Button
             android:id="@+id/menu_NewGame"
@@ -43,7 +45,11 @@
             android:textAllCaps="true"
             android:textColor="@color/text"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:shadowColor="@color/text_shadow"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"/>
 
         <Button
             android:id="@+id/menu_LoadGame"
@@ -56,7 +62,11 @@
             android:textAllCaps="true"
             android:textColor="@color/text"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:shadowColor="@color/text_shadow"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"/>
 
         <Button
             android:id="@+id/menu_Scores"
@@ -69,7 +79,11 @@
             android:textAllCaps="true"
             android:textColor="@color/text"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:shadowColor="@color/text_shadow"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
